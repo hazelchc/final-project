@@ -45,27 +45,30 @@
 
 <hr>
 
+<dl>
+  <% Message.where({ :recipe_id => @the_recipe.id }).order(:created_at).each do |message| %>
+    <dt><%= message.role %></dt>
+    <dd><%= simple_format(message.content) %></dd>
+  <% end %>
 
-<div>
-  <div>
-    <h2>
-      Edit recipe
-    </h2>
+  <dt>user</dt>
+  <dd>
+    <form action="/insert_message" method="post">
+      <input type="hidden" name="query_recipe_id" value="<%= @the_recipe.id %>">
 
-    <form action="/modify_recipe/<%= @the_recipe.id %>"  method="post" >
+      <input type="hidden" id="role_box" name="query_role" value="user">
+
       <div>
-        <label for="ingredient_box">
-          Ingredient
+        <label for="content_box" style="display: none">
+          Content
         </label>
 
-        <input type="text" id="ingredient_box" name="query_ingredient" value="<%= @the_recipe.ingredient %>">
+        <textarea id="content_box" name="query_content" placeholder="Enter your response..." cols="80" rows="10"></textarea>
       </div>
 
       <button>
-        Update recipe
+        Add message
       </button>
     </form>
-  </div>
-</div>
-
-<hr>
+  </dd>
+</dl>

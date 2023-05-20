@@ -1,21 +1,22 @@
 Rails.application.routes.draw do
-
+  get("/", { :controller => "recipes", :action => "index" })
+  
   # Routes for the Message resource:
 
   # CREATE
   post("/insert_message", { :controller => "messages", :action => "create" })
           
-  # READ
-  get("/messages", { :controller => "messages", :action => "index" })
+  # # READ
+  # get("/messages", { :controller => "messages", :action => "index" })
   
-  get("/messages/:path_id", { :controller => "messages", :action => "show" })
+  # get("/messages/:path_id", { :controller => "messages", :action => "show" })
   
-  # UPDATE
+  # # UPDATE
   
-  post("/modify_message/:path_id", { :controller => "messages", :action => "update" })
+  # post("/modify_message/:path_id", { :controller => "messages", :action => "update" })
   
-  # DELETE
-  get("/delete_message/:path_id", { :controller => "messages", :action => "destroy" })
+  # # DELETE
+  # get("/delete_message/:path_id", { :controller => "messages", :action => "destroy" })
 
   #------------------------------
 
@@ -29,15 +30,15 @@ Rails.application.routes.draw do
   
   get("/recipes/:path_id", { :controller => "recipes", :action => "show" })
   
-  # UPDATE
+  # # UPDATE
   
-  post("/modify_recipe/:path_id", { :controller => "recipes", :action => "update" })
+  # post("/modify_recipe/:path_id", { :controller => "recipes", :action => "update" })
   
-  # DELETE
-  get("/delete_recipe/:path_id", { :controller => "recipes", :action => "destroy" })
+  # # DELETE
+  # get("/delete_recipe/:path_id", { :controller => "recipes", :action => "destroy" })
 
   #------------------------------
 
-  get("/", { :controller => "application", :action => "index" })
+
 
 end
