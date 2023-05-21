@@ -1,4 +1,14 @@
 class RecipesController < ApplicationController
+
+  def destroy
+    the_id = params.fetch("path_id")
+    the_recipe = Recipe.where({ :id => the_id }).at(0)
+
+    the_recipe.destroy
+
+    redirect_to("/recipes", { :notice => "Recipe deleted successfully."} )
+  end
+
   def index
     matching_recipes = Recipe.all
 
@@ -68,28 +78,20 @@ class RecipesController < ApplicationController
       redirect_to("/recipes", { :alert => the_recipe.errors.full_messages.to_sentence })
     end
   end
-end 
+end
 
-#   def update
-#     the_id = params.fetch("path_id")
-#     the_recipe = Recipe.where({ :id => the_id }).at(0)
+  def update
+    the_id = params.fetch("path_id")
+    the_recipe = Recipe.where({ :id => the_id }).at(0)
 
-#     the_recipe.ingredient = params.fetch("query_ingredient")
+    the_recipe.ingredient = params.fetch("query_ingredient")
 
-#     if the_recipe.valid?
-#       the_recipe.save
-#       redirect_to("/recipes/#{the_recipe.id}", { :notice => "Recipe updated successfully."} )
-#     else
-#       redirect_to("/recipes/#{the_recipe.id}", { :alert => the_recipe.errors.full_messages.to_sentence })
-#     end
-#   end
+    if the_recipe.valid?
+      the_recipe.save
+      redirect_to("/recipes/#{the_recipe.id}", { :notice => "Recipe updated successfully."} )
+    else
+      redirect_to("/recipes/#{the_recipe.id}", { :alert => the_recipe.errors.full_messages.to_sentence })
+    end
+  end
 
-#   def destroy
-#     the_id = params.fetch("path_id")
-#     the_recipe = Recipe.where({ :id => the_id }).at(0)
 
-#     the_recipe.destroy
-
-#     redirect_to("/recipes", { :notice => "Recipe deleted successfully."} )
-#   end
-# end
