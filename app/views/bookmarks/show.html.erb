@@ -1,0 +1,44 @@
+<div>
+  <div>
+    <h1>
+      Bookmark #<%= @the_bookmark.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/bookmarks">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_bookmark/<%= @the_bookmark.id %>">
+          Delete bookmark
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Recipe
+      </dt>
+      <dd>
+        <%= @the_bookmark.recipe_to_bookmark.content %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_bookmark.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_bookmark.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>

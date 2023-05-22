@@ -10,4 +10,11 @@
 #  recipe_id  :integer
 #
 class Message < ApplicationRecord
+  belongs_to:recipe
+
+  belongs_to(:message_to_ingredient, {
+    :class_name => "Recipe",
+    :foreign_key => "recipe_id"
+  })
+
 end

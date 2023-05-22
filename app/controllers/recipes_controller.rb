@@ -37,7 +37,7 @@ class RecipesController < ApplicationController
       system_message = Message.new
       system_message.recipe_id = the_recipe.id
       system_message.role = "system"
-      system_message.content = "You are a chef. The user has #{the_recipe.ingredient} left in the fridge. Suggest a recipe that includes #{the_recipe.ingredient}. Modify the recipe based on the user's additional request."
+      system_message.content = "You are a chef. The user has #{the_recipe.ingredient} left in the fridge. Suggest a recipe (with ingredients and instructions) that includes #{the_recipe.ingredient}. Modify the recipe based on the user's additional request."
       system_message.save
 
       user_message = Message.new
@@ -93,5 +93,3 @@ end
       redirect_to("/recipes/#{the_recipe.id}", { :alert => the_recipe.errors.full_messages.to_sentence })
     end
   end
-
-

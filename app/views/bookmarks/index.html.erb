@@ -1,0 +1,78 @@
+<div>
+  <div>
+    <h1>
+      <%= @current_user.first_name %>'s bookmarked recipes
+    </h1>
+  </div>
+</div>
+
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          Bookmark ID
+        </th>
+
+        <th>
+          Ingredients
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_bookmarks.each do |a_bookmark| %>
+      <tr>
+      <% if a_bookmark.recipe_to_bookmark.message_to_ingredient != nil %>
+        <td>
+          <%= a_bookmark.id %>
+        </td>
+
+
+        <td>
+
+          <%= a_bookmark.recipe_to_bookmark.message_to_ingredient.ingredient %>
+
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_bookmark.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_bookmark.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/bookmarks/<%= a_bookmark.id %>">
+            Show details
+          </a>
+        </td>
+        
+        <td>
+          <a href="/delete_bookmark/<%= a_bookmark.id %>">
+            Un-bookmark
+          </a>
+        </td>
+
+      </tr>
+        <% else %>
+          <%= %>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>

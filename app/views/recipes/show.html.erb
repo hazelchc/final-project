@@ -49,6 +49,27 @@
   <% Message.where({ :recipe_id => @the_recipe.id }).order(:created_at).each do |message| %>
     <dt><%= message.role %></dt>
     <dd><%= simple_format(message.content) %></dd>
+    <% if message.role == "assistant" %>
+      <% if message.content.include? "Ingredients:" or "Instructions:" or "Directions:"%>
+        <% if @current_user != nil %>
+          <% current_user_bookmarks = Bookmark.where({ :message_id => message.id, :user_id => session.fetch(:user_id)}) %>
+          <% the_bookmark = current_user_bookmarks.at(0) %>
+          <% if the_bookmark == nil %>
+            <form action="/add_bookmark">
+              <input type="hidden" name="the_user_id" value="<%= session.fetch(:user_id) %>">
+
+              <input type="hidden" name="the_message_id" value="<%= message.id %>">
+
+              <button>Bookmark this recipe!</button>
+            </form>
+          <% else %>
+          <form action="/delete_bookmark/<%= the_bookmark.id %>">
+            <button>Un-Bookmark this recipe!</button>
+          </form>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 
   <dt>user</dt>

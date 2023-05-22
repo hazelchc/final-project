@@ -8,4 +8,6 @@
 #  updated_at :datetime         not null
 #
 class Recipe < ApplicationRecord
+  has_many :messages
+  validates :ingredient, :presence => true
 end

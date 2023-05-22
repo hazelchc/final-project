@@ -1,19 +1,8 @@
 <div>
   <div>
     <h1>
-      List of all recipes
-    </h1>
-  </div>
-</div>
-
-<hr>
-
-<div>
-  <div>
-    <h2>
       What's left in your fridge?
-    </h2>
-
+    </h1>
     <form action="/insert_recipe" method="post">
       <div>
         <label for="ingredient_box">
@@ -30,7 +19,19 @@
   </div>
 </div>
 
+
+
 <hr>
+
+<div>
+  <div>
+    <h2>
+    What others are searching:
+    </h2>
+
+  </div>
+</div>
+
 <div>
   <div>
     <table border="1">
@@ -45,10 +46,6 @@
 
         <th>
           Created at
-        </th>
-
-        <th>
-          Updated at
         </th>
 
         <th>
@@ -67,9 +64,6 @@
 
         <td>
           <%= time_ago_in_words(a_recipe.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_recipe.updated_at) %> ago
         </td>
 
         <td>

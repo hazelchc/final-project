@@ -1,21 +1,13 @@
 class MessagesController < ApplicationController
-  # def index
-  #   matching_messages = Message.all
+  
+  def add_user_bookmark
+    b = Bookmark.new
+    b.user_id = params.fetch("the_user_id")
+    b.message_id = params.fetch("the_message_id")
+    b.save 
 
-  #   @list_of_messages = matching_messages.order({ :created_at => :desc })
-
-  #   render({ :template => "messages/index.html.erb" })
-  # end
-
-  # def show
-  #   the_id = params.fetch("path_id")
-
-  #   matching_messages = Message.where({ :id => the_id })
-
-  #   @the_message = matching_messages.at(0)
-
-  #   render({ :template => "messages/show.html.erb" })
-  # end
+    redirect_to "/bookmarks", :notice => "Bookmarked recipe"
+  end
 
   def create
     the_message = Message.new
@@ -80,12 +72,13 @@ end
 #     end
 #   end
 
-#   def destroy
-#     the_id = params.fetch("path_id")
-#     the_message = Message.where({ :id => the_id }).at(0)
+  def destroy
+    the_id = params.fetch("path_id")
+    the_message = Message.where({ :id => the_id }).at(0)
 
-#     the_message.destroy
+    the_message.destroy
 
-#     redirect_to("/messages", { :notice => "Message deleted successfully."} )
-#   end
-# end
+    redirect_to("/messages", { :notice => "Message deleted successfully."} )
+  end
+
+
