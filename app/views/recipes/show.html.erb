@@ -3,7 +3,6 @@
     <h1>
       Recipe #<%= @the_recipe.id %> details
     </h1>
-
     <div>
       <div>
         <a href="/recipes">
@@ -12,9 +11,11 @@
       </div>
 
       <div>
-        <a href="/delete_recipe/<%= @the_recipe.id %>">
-          Delete recipe
-        </a>
+        <%if session.fetch(:user_id) == @the_recipe.user_id %>
+          <a href="/delete_recipe/<%= @the_recipe.id %>">
+            Delete recipe
+          </a>
+        <% end%>
       </div>
     </div>
 
@@ -44,7 +45,7 @@
     <dt><%= message.role %></dt>
     <dd><%= simple_format(message.content) %></dd>
     <% if message.role == "assistant" %>
-      <% if message.content.include? "Ingredients:" or "Instructions:" or "Directions:"%>
+      <% if message.content.include? "Instructions:" %>
         <% if @current_user != nil %>
           <% current_user_bookmarks = Bookmark.where({ :message_id => message.id, :user_id => session.fetch(:user_id)}) %>
           <% the_bookmark = current_user_bookmarks.at(0) %>
@@ -78,7 +79,7 @@
           Content
         </label>
 
-        <textarea id="content_box" name="query_content" placeholder="Enter your response..." cols="80" rows="10"></textarea>
+        <textarea id="content_box" name="query_content" placeholder="Modify the recipe by entering your response..." cols="80" rows="10"></textarea>
       </div>
 
       <button>

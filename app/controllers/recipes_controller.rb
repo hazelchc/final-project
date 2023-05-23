@@ -1,4 +1,9 @@
 class RecipesController < ApplicationController
+  before_action(:load_current_user)
+
+  def load_current_user
+    @current_user = User.where({ :id => session[:user_id] }).at(0)
+  end 
 
   def destroy
     the_id = params.fetch("path_id")
@@ -29,6 +34,7 @@ class RecipesController < ApplicationController
 
   def create
     the_recipe = Recipe.new
+    the_recipe.user_id = @current_user.id
     the_recipe.ingredient = params.fetch("query_ingredient")
 
     if the_recipe.valid?
@@ -37,7 +43,10 @@ class RecipesController < ApplicationController
       system_message = Message.new
       system_message.recipe_id = the_recipe.id
       system_message.role = "system"
-      system_message.content = "You are a chef. The user has #{the_recipe.ingredient} left in the fridge. Suggest a recipe (with ingredients and instructions) that includes #{the_recipe.ingredient}. Modify the recipe based on the user's additional request."
+      message_A = "You are a chef. The user has #{the_recipe.ingredient} left in the fridge. Suggest a recipe that includes #{the_recipe.ingredient}. Modify the recipe based on the user's additional request."
+
+      message_B = " The format of the recipe should include a section of '###Ingredients:' and a section of 'Instructions:'. At the end of the recipe, say '***Bon Appétit!' " 
+      system_message.content = message_A + message_B 
       system_message.save
 
       user_message = Message.new

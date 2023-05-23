@@ -22,6 +22,15 @@ class BookmarksController < ApplicationController
 
     @the_bookmark = matching_bookmarks.at(0)
 
+    @raw_recipe = @the_bookmark.recipe_to_bookmark.content[/#{"###"}(.*?)#{"Bon"}/m, 1]
+
+    # @ingredient = raw_recipe[/#{"Ingredients:"}(.*?)#{"Instructions:"}/m, 1]
+
+    # @chars = @ingredient.split('-')
+
+    # @instruction = raw_recipe[/#{"Instructions:"}(.*?)#{"***:"}/m, 1]
+
+
     render({ :template => "bookmarks/show.html.erb" })
   end
 
