@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>Leftover Recipe Generator</title>
@@ -17,30 +18,16 @@
 
   <body>
     <nav>
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          
-          <% if session.fetch(:user_id) == nil %>
-            <li>
-              <a href="/user_sign_up">Sign Up</a>
-            </li>
-
-            <li>
-              <a href="/user_sign_in">Sign In</a>
-            </li>
-
-          <% else %>
-            <li>
-              <a href="/user_sign_out">Sign Out</a>
-            </li>
-            <li>
-              <a href="/bookmarks">My bookmarks</a>
-            </li>
-          <% end %>
-
-
+      <div>
+        <a class="navbar-brand" href="/">Home</a>
+        <% if session.fetch(:user_id) == nil %>
+            <a class="navbar-brand" href="/user_sign_up">Sign Up</a>
+            <a class="navbar-brand" href="/user_sign_in">Sign In</a>
+        <% else %>
+            <a class="navbar-brand" href="/user_sign_out">Sign Out</a>
+            <a class="navbar-brand" href="/bookmarks">My bookmarks</a>
+        <% end %>
+      </div>
     </nav>
 
     <% if notice.present?%>
