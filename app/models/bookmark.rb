@@ -16,5 +16,8 @@ class Bookmark < ApplicationRecord
     :class_name => "Message",
     :foreign_key => "message_id"
   })
+  def notes
+    return Note.where({ :bookmark_id => self.id })
+  end
 
 end

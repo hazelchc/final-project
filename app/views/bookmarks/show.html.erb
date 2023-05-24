@@ -24,6 +24,7 @@
       </dt>
       <dd>
          <%= @raw_recipe %>
+         
         <%# @chars.each do |the_ingredient| %>
           <%#= the_ingredient %><br>
         <%# end %>
@@ -36,12 +37,38 @@
         <%= time_ago_in_words(@the_bookmark.created_at) %> ago
       </dd>
 
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_bookmark.updated_at) %> ago
-      </dd>
+
     </dl>
   </div>
 </div>
+
+<h2>Add a note!</h2>
+<h4>Did you like the dish? Did you modify anything? Leave a note for future refernece:</h4>
+<table>
+  <tr>
+    <th>Note</th>
+    <th>Posted</th>
+  </tr>
+  
+  <% @the_bookmark.notes.each do |note| %>
+  <tr>
+    <td>
+      <%= note.body%><br>
+    </td>
+
+    <td>
+      <%= note.created_at %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<br>
+<form action="/insert_note" method="post">
+  <input id="browser_bookmark_id" type="hidden" value="<%= @the_bookmark.id %>" name="input_bookmark_id">
+
+  <label for="browser_note"></label>
+  <textarea id="browser_note" name="query_body" placeholder="Leave a note for future refernece!"></textarea>
+
+  <button>Add note</button>
+</form>

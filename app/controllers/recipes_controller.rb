@@ -43,10 +43,9 @@ class RecipesController < ApplicationController
       system_message = Message.new
       system_message.recipe_id = the_recipe.id
       system_message.role = "system"
-      message_A = "You are a chef. The user has #{the_recipe.ingredient} left in the fridge. Suggest a recipe that includes #{the_recipe.ingredient}. Modify the recipe based on the user's additional request."
+  
+      system_message.content =  "You are a chef. The user has #{the_recipe.ingredient} left in the fridge. Suggest a recipe that includes #{the_recipe.ingredient}. Modify the recipe based on the user's additional request. The recipe should include a section of '#Ingredients:' and a section of 'Instructions:'. At the end of the recipe, say 'Bon Appétit!' " 
 
-      message_B = " The format of the recipe should include a section of '#Ingredients:' and a section of 'Instructions:'. At the end of the recipe, say 'Bon Appétit!' " 
-      system_message.content = message_A + message_B 
       system_message.save
 
       user_message = Message.new
